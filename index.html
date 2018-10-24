@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML5 Apps</title>
+</head>
+
+<body>
+    <div class="fd-page">
+        <div class="fd-action-bar__header">
+            <header class="fd-page__header">
+                <h1>HTML5 Applications on SCP</h1>
+            </header>
+        </div>
+        <p id="HTML5Apps"></p>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <link href="https://unpkg.com/fundamental-ui@1.2.2/dist/fundamental-ui.min.css" rel="stylesheet">
+        <script>
+            let allApps = {}, appsTable = [];
+
+            $(document).ready(function () {
+                parseData();
+                buildAppTable();
+            });
+
+            let devApps = [{ "name": "vendorrequests", "displayName": "vendorrequests", "secureAccessViaRoute": true, "activeVersion": "1.1.0", "activeCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "startedVersion": "1.0.11", "startedCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/vendorrequests", "url": "https://vendorrequests-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "poapprovals", "displayName": "poapprovals", "secureAccessViaRoute": true, "activeVersion": "2.0.0", "activeCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "startedVersion": "2.0.0", "startedCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/poapprovals", "url": "https://poapprovals-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "helloworld", "displayName": "helloworld", "secureAccessViaRoute": true, "activeVersion": "1.0.1", "activeCommit": "8a09215f171d98824a1a461b3c9b9253dee64721", "startedVersion": "1.0.1", "startedCommit": "8a09215f171d98824a1a461b3c9b9253dee64721", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/helloworld", "url": "https://helloworld-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "startcloudworkflow", "displayName": "startcloudworkflow", "secureAccessViaRoute": true, "activeVersion": "2.0.0", "activeCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "startedVersion": "2.0.0", "startedCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/startcloudworkflow", "url": "https://startcloudworkflow-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "trackandtrace", "displayName": "trackandtrace", "secureAccessViaRoute": true, "status": "STOPPED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/trackandtrace", "url": "https://trackandtrace-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }];
+
+            let testApps = [{ "name": "vendorrequests", "displayName": "vendorrequests", "secureAccessViaRoute": true, "activeVersion": "1.0.10", "activeCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "startedVersion": "1.0.10", "startedCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/vendorrequests", "url": "https://vendorrequests-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "poapprovals", "displayName": "poapprovals", "secureAccessViaRoute": true, "activeVersion": "1.5.0", "activeCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "startedVersion": "1.5.0", "startedCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/poapprovals", "url": "https://poapprovals-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "helloworld", "displayName": "helloworld", "secureAccessViaRoute": true, "activeVersion": "1.0.1", "activeCommit": "8a09215f171d98824a1a461b3c9b9253dee64721", "startedVersion": "1.0.1", "startedCommit": "8a09215f171d98824a1a461b3c9b9253dee64721", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/helloworld", "url": "https://helloworld-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "startcloudworkflow", "displayName": "startcloudworkflow", "secureAccessViaRoute": true, "activeVersion": "1.2.0", "activeCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "startedVersion": "1.2.0", "startedCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/startcloudworkflow", "url": "https://startcloudworkflow-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "trackandtrace", "displayName": "trackandtrace", "secureAccessViaRoute": true, "status": "STOPPED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/trackandtrace", "url": "https://trackandtrace-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }];
+
+            let prodApps = [{ "name": "vendorrequests", "displayName": "vendorrequests", "secureAccessViaRoute": true, "activeVersion": "1.0.10", "activeCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "startedVersion": "1.0.10", "startedCommit": "6f000134d0e2a5d37ad0890b112e755da5fa74f5", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/vendorrequests", "url": "https://vendorrequests-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "poapprovals", "displayName": "poapprovals", "secureAccessViaRoute": true, "activeVersion": "1.0.0", "activeCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "startedVersion": "1.0.0", "startedCommit": "afce153432a10066f57678993aa1e8d62b492c1c", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/poapprovals", "url": "https://poapprovals-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "startcloudworkflow", "displayName": "startcloudworkflow", "secureAccessViaRoute": true, "activeVersion": "1.0.4", "activeCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "startedVersion": "1.0.4", "startedCommit": "fcc50d0d1c65606b63b32236d4b2d7f0d5df4d65", "status": "STARTED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/startcloudworkflow", "url": "https://startcloudworkflow-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }, { "name": "trackandtrace", "displayName": "trackandtrace", "secureAccessViaRoute": true, "status": "STOPPED", "repository": "https://git.hanatrial.ondemand.com/<SAP_ID>/trackandtrace", "url": "https://trackandtrace-<SAP_ID>.dispatcher.hanatrial.ondemand.com" }];
+
+            function parseData() {
+                devApps.forEach(function (app) {
+                    allApps[app.name] = { Dev: app.activeVersion };
+                })
+
+                testApps.forEach(function (app) {
+                    if (allApps[app.name]) {
+                        allApps[app.name].Test = app.activeVersion;
+                    } else {
+                        allApps[app.name] = { Test: app.activeVersion };
+                    }
+                });
+
+                prodApps.forEach(function (app) {
+                    if (allApps[app.name]) {
+                        allApps[app.name].Prod = app.activeVersion;
+                    } else {
+                        allApps[app.name] = { Prod: app.activeVersion };
+                    }
+                });
+
+                for (key in allApps) {
+                    if (!allApps[key].Dev) {
+                        allApps[key].Dev = "Not deployed";
+                    }
+                    if (!allApps[key].Test) {
+                        allApps[key].Test = "Not deployed";
+                    }
+                    if (!allApps[key].Prod) {
+                        allApps[key].Prod = "Not deployed";
+                    }
+                    appsTable.push({ Application: key, Dev: allApps[key].Dev, Test: allApps[key].Test, Prod: allApps[key].Prod });
+                }
+            }
+
+            function buildAppTable() {
+                // Extra value for HTML header
+                var col = [];
+                for (var i = 0; i < appsTable.length; i++) {
+                    for (var key in appsTable[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
+                        }
+                    }
+                }
+
+                // Create dynamic table
+                var table = document.createElement("table");
+                table.classList.add("fd-table");
+
+                var thead = document.createElement("thead");
+                table.appendChild(thead);
+
+                var tr = document.createElement("tr");
+
+                // Create HTML table header row using the extracted headers above
+                var tr = table.insertRow(-1);
+
+                for (var i = 0; i < col.length; i++) {
+                    var th = document.createElement("th")
+                    th.innerHTML = col[i];
+                    thead.appendChild(th);
+                }
+
+                // Add JSON data to the table as rows
+                for (var i = 0; i < appsTable.length; i++) {
+
+                    tr = table.insertRow(-1);
+
+                    for (var j = 0; j < col.length; j++) {
+                        var tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = appsTable[i][col[j]];
+                    }
+                }
+
+                // Add the newly created table with JSON data to a container
+                var divContainer = document.getElementById("HTML5Apps");
+                divContainer.innerHTML = "";
+                divContainer.appendChild(table);
+            }
+        </script>
+    </div>
+</body>
+
+</html>
